@@ -10,7 +10,8 @@ import Editor from './components/pages/Editor';
 import { auth } from './firebase/InitialFirebase';
 import { signOut } from '@firebase/auth';
 import { useHistory } from 'react-router';
-import { SET_NAME, SET_ID_USER } from './constants/actionsConctants';
+import { deleteIdUserAction } from './redux/creatorsActions/deleteIsUserAction';
+import { deleteUserNameAction } from './redux/creatorsActions/deleteUserNameAction';
 import './App.css';
 
 function App() {
@@ -21,8 +22,8 @@ function App() {
 
   const logOut = () => {
     signOut(auth);
-    dispatch({type: SET_NAME, payload: ""});
-    dispatch({type: SET_ID_USER, payload: ""});
+    dispatch(deleteUserNameAction());
+    dispatch(deleteIdUserAction());
     history.push('/');
   };
 

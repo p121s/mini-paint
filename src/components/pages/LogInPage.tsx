@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth, database } from '../../firebase/InitialFirebase';
 import { Button, Form, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
-import { SET_NAME, SET_ID_USER } from '../../constants/actionsConctants';
+import { setUserNameAction } from '../../redux/creatorsActions/setUserNameAction';
+import { setIdUserAction } from '../../redux/creatorsActions/setIdUserAction';
 
 export default function LogIn () {
 
@@ -31,9 +32,9 @@ export default function LogIn () {
                     getDoc(doc(database, 'users', `${id}`))
                         .then(responce => responce!.data()!.userName)
                         .then(name => {
-                    dispatch({type: SET_NAME, payload: `${name}`});
+                    dispatch(setUserNameAction(`${name}`));
                     })
-                    dispatch({type: SET_ID_USER, payload: id});
+                    dispatch(setIdUserAction(id));
                 })
             .catch(error => alert(error)); 
     };
