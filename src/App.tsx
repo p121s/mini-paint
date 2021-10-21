@@ -1,9 +1,7 @@
 import * as React from 'react';
-// import { useState, useEffect } from 'react';
 import { Div, Body, Button } from './styledComponents/StyledComponents';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import './App.css';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import LogIn from './components/pages/LogInPage';
 import Registration from './components/pages/RegistrationPage';
 import Account from './components/pages/Account';
@@ -12,36 +10,19 @@ import Editor from './components/pages/Editor';
 import { auth } from './firebase/InitialFirebase';
 import { signOut } from '@firebase/auth';
 import { useHistory } from 'react-router';
-
-// const body: HTMLElement = document.getElementsByTagName('body')[0];
-// body = document.documentElement.clientHeight;
-// console.log(body);
+import { SET_NAME, SET_ID_USER } from './constants/actionsConctants';
+import './App.css';
 
 function App() {
 
-  // const [nameNew, setName] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
-  const name = useSelector((state: RootStateOrAny) => state.redus.name);
-
-  // useEffect(() => {
-  //   setName(name);
-  // }, [name])
-
-  // console.log(name);
-
-  // const handleChange = ({target: {value}}: any) => {
-  //   setName(value);
-  // };
-
-  // const changeName = () => {
-  //   dispatch({type: "SET_NAME", payload: nameNew});
-  // };
+  const name = useSelector((state: RootStateOrAny) => state.reduce.name);
 
   const logOut = () => {
     signOut(auth);
-    dispatch({type: "SET_NAME", payload: ""});
-    dispatch({type: "SET_ID_USER", payload: ""});
+    dispatch({type: SET_NAME, payload: ""});
+    dispatch({type: SET_ID_USER, payload: ""});
     history.push('/');
   };
 
@@ -57,6 +38,9 @@ function App() {
             </Body>
           ) : (
               <>
+                  <NavLink to='/'><Button>My Account</Button></NavLink>
+                  <NavLink to='/history'><Button>History</Button></NavLink>
+                  <NavLink to='/editor'><Button>Editor</Button></NavLink>
                   <Button onClick={logOut}>Sign Out</Button>
                   <Route path='/' exact component={Account} />
                   <Route path='/history' component={HistoryPage} />
