@@ -7,6 +7,7 @@ import { Button, Form, Input, InputEmail, PasswordInput } from '../../styledComp
 import { auth, database } from '../../firebase/InitialFirebase';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { setDoc, doc } from '@firebase/firestore';
+import { SET_NAME, SET_ID_USER } from '../../constants/actionsConctants';
 
 export default function Registration () {
 
@@ -45,8 +46,8 @@ export default function Registration () {
                         userName: name,
                         userEmail: email,
                     });
-                    dispatch({type: 'SET_NAME', payload: name});
-                    dispatch({type: "SET_ID_USER", payload: responce.user.uid});
+                    dispatch({type: SET_NAME, payload: name});
+                    dispatch({type: SET_ID_USER, payload: responce.user.uid});
                     history.push('/');
                 } else {
                     alert('Don`t creaate new user in database!');

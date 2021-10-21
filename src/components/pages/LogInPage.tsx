@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth, database } from '../../firebase/InitialFirebase';
 import { Button, Form, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
+import { SET_NAME, SET_ID_USER } from '../../constants/actionsConctants';
 
 export default function LogIn () {
 
@@ -30,9 +31,9 @@ export default function LogIn () {
                     getDoc(doc(database, 'users', `${id}`))
                         .then(responce => responce!.data()!.userName)
                         .then(name => {
-                    dispatch({type: "SET_NAME", payload: `${name}`});
+                    dispatch({type: SET_NAME, payload: `${name}`});
                     })
-                    dispatch({type: "SET_ID_USER", payload: id});
+                    dispatch({type: SET_ID_USER, payload: id});
                 })
             .catch(error => alert(error)); 
     };

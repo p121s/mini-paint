@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import { collection, getDocs } from '@firebase/firestore';
 import { database } from '../../firebase/InitialFirebase';
 
@@ -17,16 +16,10 @@ export default function HistoryPage () {
     return (
         <>
             <h1>History Page</h1>
-            <NavLink to='/'>My Account</NavLink>
-            <NavLink to='/editor'>Editor</NavLink>
             <div>
-                {allimages ? (
-                    <>
-                        {allimages.map((image: any) => (
-                            <img src={image.image} alt='' />
-                        ))}
-                    </>
-                ) : ''}
+                {allimages.map((image: any) => (
+                    <img className='image' src={image.image} alt='' />
+                ))}
             </div>
         </>
     );
