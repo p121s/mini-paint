@@ -13,6 +13,9 @@ import { useHistory } from 'react-router';
 import { deleteIdUserAction } from './redux/creatorsActions/deleteIsUserAction';
 import { deleteUserNameAction } from './redux/creatorsActions/deleteUserNameAction';
 import './App.css';
+import { DivPage } from './styledComponents/blocks/DivPage';
+import { DivNavigation } from './styledComponents/blocks/DivNavigation';
+import { DivContent } from './styledComponents/blocks/DivContent';
 
 function App() {
 
@@ -38,15 +41,19 @@ function App() {
               </Div>
             </Body>
           ) : (
-              <>
-                  <NavLink to='/'><Button>My Account</Button></NavLink>
-                  <NavLink to='/history'><Button>History</Button></NavLink>
-                  <NavLink to='/editor'><Button>Editor</Button></NavLink>
-                  <Button onClick={logOut}>Sign Out</Button>
-                  <Route path='/' exact component={Account} />
-                  <Route path='/history' component={HistoryPage} />
-                  <Route path='/editor' component={Editor} />
-              </>
+              <DivPage>
+                  <DivNavigation>
+                      <NavLink to='/'><Button>My Account</Button></NavLink>
+                      <NavLink to='/history'><Button>History</Button></NavLink>
+                      <NavLink to='/editor'><Button>Editor</Button></NavLink>
+                      <Button onClick={logOut}>Sign Out</Button>
+                  </DivNavigation>
+                  <DivContent>
+                      <Route path='/' exact component={Account} />
+                      <Route path='/history' component={HistoryPage} />
+                      <Route path='/editor' component={Editor} />
+                  </DivContent>
+              </DivPage>
           )}
         </Switch>
     </>
