@@ -1,32 +1,29 @@
-import { collection, getDocs, query, where } from '@firebase/firestore';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { RootStateOrAny, useSelector } from 'react-redux';
-import { database } from '../../firebase/InitialFirebase';
+import { useEffect } from 'react';
+import { DivScroll } from '../../styledComponents/blocks/DivScroll';
+import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
+import { getUserImages } from '../../redux/asyncActions/getUserImage';
 
 export default function Account () {
 
+    const dispatch = useDispatch();
     const name = useSelector((state: RootStateOrAny) => state.reduce.name);
-    const idUser = useSelector((state: RootStateOrAny) => state.reduce.idUser);
-    const [allimages, setAllImages] = useState<any>([]);
+    const userImages = useSelector((state: RootStateOrAny) => state.reduceImages.userImages)
 
     useEffect(() => {
-        const queryInDatabase = query(collection(database, 'images'), where("user", "==", idUser));
-    getDocs(queryInDatabase)
-        .then(({docs}) => docs.map(doc => doc.data()))
-        .then(res => setAllImages(res));
-    }, [idUser])
+        dispatch(getUserImages());
+    }, [dispatch])
 
 
     return (
         <>
             <h1>My Account</h1>
             <h3>{name} Online</h3>
-            <div>
-                {allimages.map((image: any) => (
+            <DivScroll>
+                {userImages.map((image: any) => (
                     <img className='image' src={image.image} alt='' />
                 ))}
-            </div>
+            </DivScroll>
         </>
     );
 }

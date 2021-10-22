@@ -1,26 +1,27 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { collection, getDocs } from '@firebase/firestore';
-import { database } from '../../firebase/InitialFirebase';
+import { useEffect } from 'react';
+import { RootStateOrAny, useDispatch } from 'react-redux';
+import { getAllImages } from '../../redux/asyncActions/getAllImages';
+import { DivScroll } from '../../styledComponents/blocks/DivScroll';
+import { useSelector } from 'react-redux';
 
 export default function HistoryPage () {
 
-    const [allimages, setAllImages] = useState<any>([]);
+    const dispatch = useDispatch();
+    const allImages = useSelector((state: RootStateOrAny) => state.reduceImages.allImages)
 
     useEffect(() => {
-    getDocs(collection(database, 'images'))
-        .then(({docs}) => docs.map(doc => doc.data()))
-        .then(res => setAllImages(res));
-    }, [])
+        dispatch(getAllImages());
+    }, [dispatch])
 
     return (
         <>
             <h1>History Page</h1>
-            <div>
-                {allimages.map((image: any) => (
+            <DivScroll>
+                {allImages.map((image: any) => (
                     <img className='image' src={image.image} alt='' />
                 ))}
-            </div>
+            </DivScroll>
         </>
     );
 }
