@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth, database } from '../../firebase/InitialFirebase';
-import { Button, Form, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
+import { RegLogInButton, Form, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
 import { setUserNameAction } from '../../redux/creatorsActions/setUserNameAction';
 import { setIdUserAction } from '../../redux/creatorsActions/setIdUserAction';
 
@@ -45,7 +45,7 @@ export default function LogIn () {
             <Form>
                 <InputEmail placeholder='Your Email' onChange={handlerChangeEmail} />
                 <PasswordInput type='password' placeholder="Your Password" onChange={handlerChangePassword} />
-                <Button onClick={signIn}>Sign In</Button>
+                <RegLogInButton onClick={signIn}>Sign In</RegLogInButton>
                 
             </Form>
             <NavLink to='/register'>Registration</NavLink>

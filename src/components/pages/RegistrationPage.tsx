@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { Button, Form, Input, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
+import { Form, Input, InputEmail, PasswordInput, RegLogInButton } from '../../styledComponents/StyledComponents';
 import { auth, database } from '../../firebase/InitialFirebase';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { setDoc, doc } from '@firebase/firestore';
@@ -69,7 +69,7 @@ export default function Registration () {
                 <InputEmail placeholder="Your Email" onChange={handlerChangeEmail} />
                 <PasswordInput type='password' placeholder="Your Password" onChange={handlerChangePassword} />
                 <PasswordInput type='password' placeholder="Repeat Your Password" onChange={handlerChangePasswordRepeat} />
-                <Button onClick={signIn}>Register</Button>
+                <RegLogInButton onClick={signIn}>Register</RegLogInButton>
             </Form>
             <NavLink to='/'>LogIn</NavLink>
         </>

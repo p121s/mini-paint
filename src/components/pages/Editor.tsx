@@ -5,17 +5,30 @@ import { ReactPainter } from 'react-painter';
 import { addDoc, collection } from '@firebase/firestore';
 import { database } from '../../firebase/InitialFirebase';
 import { RootStateOrAny, useSelector } from 'react-redux';
-import { ButtonColor, ColorBlock } from '../../styledComponents/StyledComponents';
+import { Button, ColorBlock, EditorControlsBlock, WidthBrushBlock, CustomInputFile } from '../../styledComponents/StyledComponents';
 
 export default function Editor() {
 
     const idUser = useSelector((state: RootStateOrAny) => state.reduce.idUser);
     const [url, setUrl] = useState();
     const [isColorBlock, setIsColorBlock] = useState(false);
+    const [isWidthBrushBlock, setIsWidthBrushBlock] = useState(false);
     const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement>();
     const [imageFile, setImageFile] = useState<Blob>();
     const [imageUrl, setImageUrl] = useState<string | ArrayBuffer>();
     const [colorState, setColorState] = useState<string>('#000');
+
+    
+
+    useEffect(() => {
+        if(canvasRef) {
+            canvasRef.style.cssText = `
+                backgroundColor: 'white';
+                border: 1px solid lightgray;
+                max-width: 1000px;
+            `;
+        }
+    }, [canvasRef])
 
     const addImageInDatabase = () => {
         if(url) {
@@ -65,12 +78,17 @@ export default function Editor() {
         setIsColorBlock(!isColorBlock);
     };
 
+    const widthBrushNoneOrDlock = () => {
+        setIsWidthBrushBlock(!isWidthBrushBlock);
+    };
+
     return (
         <>
             <h1>Editor</h1>
+            
             <ReactPainter
-                width={600}
-                height={600}
+                width={document.documentElement.clientWidth - 100 < 1000 ? document.documentElement.clientWidth - 100 : 1000}
+                height={document.documentElement.clientWidth - 100 < 1000 ? document.documentElement.clientWidth - 100 : 1000}
                 onSave={blob => {
                     const reader = new FileReader();
                     reader.readAsDataURL(blob); 
@@ -81,22 +99,32 @@ export default function Editor() {
                 }}
                 render = {({setColor, setLineWidth, triggerSave, getCanvasProps}) => (
                     <div>
-                        <input type='file' multiple accept="image/*" onChange={handleImage} />
-                        <ButtonColor onClick={colorNoneOrBlokc} color={colorState}>Color</ButtonColor>
                         <ColorBlock isBlock={isColorBlock}>
-                            <RgbaStringColorPicker onChange={(e: any) => {
+                            {/* <RgbaStringColorPicker onChange={(e: any) => {
                                 setColorState(e);
-                            }} />
-                            <ButtonColor onClick={() => {
+                            }} /> */}
+                            <input type='color' onChange={({target: {value}}: any) => {
+                                setColorState(value);
+                            }} /><br></br>
+                            <button onClick={() => {
                                 colorNoneOrBlokc();
                                 setColor(`${colorState}`);
-                            }} color='lidhtgray'>{isColorBlock ? 'OK' : 'Color'}</ButtonColor>
+                            }} color='lidhtgray'>OK</button>
                         </ColorBlock>
-                        <input type="number" onChange={(e: any) => setLineWidth(e.target.value)} />
-                        <button onClick={triggerSave}>Save</button><br />
+                        <WidthBrushBlock isBlock={isWidthBrushBlock}>
+                            <input type="range" min='1' max='200' step='1' onChange={(e: any) => setLineWidth(e.target.value)} /><br></br>
+                            <button onClick={widthBrushNoneOrDlock}>OK</button>
+                        </WidthBrushBlock>
                         <div className='border_canvas'>
                             <canvas {...getCanvasProps({ ref: ref => (setCanvasRef(ref)) })} />
-                        </div>    
+                        </div>
+                        <EditorControlsBlock>
+                            <CustomInputFile htmlFor='input_file'><span>Choose File</span></CustomInputFile>
+                            <input type='file' multiple accept="image/*" id='input_file' onChange={handleImage} />
+                            <Button onClick={colorNoneOrBlokc}>Color</Button>
+                            <Button onClick={widthBrushNoneOrDlock}>Width brush</Button>
+                            <Button onClick={triggerSave}>Save</Button>
+                        </EditorControlsBlock>
                     </div>
                 )}
             />
