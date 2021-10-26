@@ -5,9 +5,10 @@ export const Div = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 400px;
+  width: 70%;
+  max-width: 500px;
   text-align: center;
-  border: 1px solid #565656;
-  background-color: white;
+  background-color: rgba(250, 250, 250, 0.9);
   padding: 20px;
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
 `;

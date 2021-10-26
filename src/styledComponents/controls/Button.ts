@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  width: 100px;
-  height: 50px;
-  background: blue;
-  color: white;
-  border-radius: 3px;
+  flex-basic: content;
+  height: 70px;
+  justify-content: center;
+  background: rgb(240, 240, 240);
   border: none;
-  margin: 20px;
+  flex-grow: 1;
 
   &:hover {
     background: lightblue;
