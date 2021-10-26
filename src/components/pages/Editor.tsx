@@ -159,9 +159,9 @@ export default function Editor() {
                             <button onClick={widthBrushNoneOrDlock}>OK</button>
                         </EditorModalBlock>
                         <EditorModalBlock isBlock={isDrawRectBlock}>
-                            <label>Width</label><br></br>
+                            <label>Width {widthRect}px</label><br></br>
                             <input type="range" min='1' max='200' step='1' value={widthRect} onChange={handleWidthRect} /><br></br>
-                            <label>Height</label><br></br>
+                            <label>Height {heightRect}px</label><br></br>
                             <input type="range" min='1' max='200' step='1' value={heightRect} onChange={handleHeightRect} /><br></br>
                             <button onClick={() => {
                                 setFigure('Rect');
@@ -169,7 +169,7 @@ export default function Editor() {
                             }}>OK</button>
                         </EditorModalBlock>
                         <EditorModalBlock isBlock={isDrawArcBlock}>
-                            <label>Diameter</label><br></br>
+                            <label>Diameter {diameterArc}px</label><br></br>
                             <input type="range" min='1' max='200' step='1' value={diameterArc} onChange={handleDiameterArc} /><br></br>
                             <button onClick={() => {
                                 setFigure('Arc');
@@ -183,7 +183,7 @@ export default function Editor() {
                             <CustomInputFile htmlFor='input_file'><span>Choose File</span></CustomInputFile>
                             <input type='file' multiple accept="image/*" id='input_file' onChange={handleImage} />
                             <Button onClick={colorNoneOrBlokc}>Color</Button>
-                            <Button onClick={widthBrushNoneOrDlock}>Width brush</Button>
+                            <Button onClick={widthBrushNoneOrDlock}>Brush width</Button>
                             <Button onClick={() => setIsDrawRectBlock(!isDrawRectBlock)}>Rect</Button>
                             <Button onClick={() => setIsDrawArcBlock(!isDrawArcBlock)}>Arc</Button>
                             <Button onClick={triggerSave}>Save</Button>
