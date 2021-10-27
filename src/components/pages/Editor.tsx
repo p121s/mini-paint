@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { RgbaStringColorPicker } from "react-colorful";
 import { ReactPainter } from 'react-painter';
 import { addDoc, collection } from '@firebase/firestore';
 import { database } from '../../firebase/InitialFirebase';
@@ -54,6 +53,33 @@ export default function Editor() {
         setImageFile(e.target.files[0]);
     };
 
+    const handleWidthRect = ({target: {value}}: any) => {
+        setWidthRect(value);
+    };
+
+    const handleHeightRect = ({target: {value}}: any) => {
+        setHeightRect(value);
+    };
+
+    const handleDiameterArc = ({target: {value}}: any) => {
+        setDiameterArc(value);
+    };
+
+    const changeColor = (setColor: any) => {
+        setIsColorBlock(!isColorBlock);
+        setColor(`${colorState}`);
+    };
+
+    const chooseFigure = (figure: string) => {
+        if(figure === "Rect") {
+            setFigure('Rect');
+            setIsDrawRectBlock(!isDrawRectBlock);
+        } else if(figure === "Arc") {
+            setFigure('Arc');
+            setIsDrawArcBlock(!isDrawArcBlock);
+        }        
+    };
+
     useEffect(() => {
         addImageInDatabase();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,19 +106,13 @@ export default function Editor() {
         }
     }, [canvasRef, imageFile, imageUrl])
 
-    const colorNoneOrBlokc = () => {
-        setIsColorBlock(!isColorBlock);
-    };
-
-    const widthBrushNoneOrDlock = () => {
-        setIsWidthBrushBlock(!isWidthBrushBlock);
-    };
-
     const drawRect = (e: any) => {
         const ctx = e.target.getContext('2d');
         const {x, y} = e.target.getBoundingClientRect();
+        const PointX = e.clientX - x - widthRect / 2;
+        const PointY = e.clientY - y - heightRect / 2;
         ctx.fillStyle = colorState;
-        ctx.fillRect(e.clientX - x - widthRect / 2, e.clientY - y - heightRect / 2, widthRect, heightRect);
+        ctx.fillRect( PointX, PointY, widthRect, heightRect);
     };
 
     const drawArc = (e: any) => {
@@ -113,17 +133,7 @@ export default function Editor() {
         setFigure('');
     };
 
-    const handleWidthRect = ({target: {value}}: any) => {
-        setWidthRect(value);
-    };
-
-    const handleHeightRect = ({target: {value}}: any) => {
-        setHeightRect(value);
-    };
-
-    const handleDiameterArc = ({target: {value}}: any) => {
-        setDiameterArc(value);
-    };
+    
 
     return (
         <>
@@ -143,38 +153,26 @@ export default function Editor() {
                 render = {({setColor, setLineWidth, triggerSave, getCanvasProps}) => (
                     <div>
                         <EditorModalBlock isBlock={isColorBlock}>
-                            {/* <RgbaStringColorPicker onChange={(e: any) => {
-                                setColorState(e);
-                            }} /> */}
                             <input type='color' onChange={({target: {value}}: any) => {
                                 setColorState(value);
                             }} /><br></br>
-                            <button onClick={() => {
-                                colorNoneOrBlokc();
-                                setColor(`${colorState}`);
-                            }} color='lidhtgray'>OK</button>
+                            <button onClick={() => {changeColor(setColor)}} color='lidhtgray'>OK</button>
                         </EditorModalBlock>
                         <EditorModalBlock isBlock={isWidthBrushBlock}>
                             <input type="range" min='1' max='200' step='1' onChange={(e: any) => setLineWidth(e.target.value)} /><br></br>
-                            <button onClick={widthBrushNoneOrDlock}>OK</button>
+                            <button onClick={() => {setIsWidthBrushBlock(!isWidthBrushBlock)}}>OK</button>
                         </EditorModalBlock>
                         <EditorModalBlock isBlock={isDrawRectBlock}>
                             <label>Width {widthRect}px</label><br></br>
                             <input type="range" min='1' max='200' step='1' value={widthRect} onChange={handleWidthRect} /><br></br>
                             <label>Height {heightRect}px</label><br></br>
                             <input type="range" min='1' max='200' step='1' value={heightRect} onChange={handleHeightRect} /><br></br>
-                            <button onClick={() => {
-                                setFigure('Rect');
-                                setIsDrawRectBlock(!isDrawRectBlock);
-                            }}>OK</button>
+                            <button onClick={() => {chooseFigure("Rect")}}>OK</button>
                         </EditorModalBlock>
                         <EditorModalBlock isBlock={isDrawArcBlock}>
                             <label>Diameter {diameterArc}px</label><br></br>
                             <input type="range" min='1' max='200' step='1' value={diameterArc} onChange={handleDiameterArc} /><br></br>
-                            <button onClick={() => {
-                                setFigure('Arc');
-                                setIsDrawArcBlock(!isDrawArcBlock);
-                            }}>OK</button>
+                            <button onClick={() => {chooseFigure("Arc")}}>OK</button>
                         </EditorModalBlock>
                         <div className='border_canvas'>
                             <canvas {...getCanvasProps({ ref: ref => (setCanvasRef(ref)) })} onClick={drawFigure} />
@@ -182,8 +180,8 @@ export default function Editor() {
                         <EditorControlsBlock>
                             <CustomInputFile htmlFor='input_file'><span>Choose File</span></CustomInputFile>
                             <input type='file' multiple accept="image/*" id='input_file' onChange={handleImage} />
-                            <Button onClick={colorNoneOrBlokc}>Color</Button>
-                            <Button onClick={widthBrushNoneOrDlock}>Brush width</Button>
+                            <Button onClick={() => {setIsColorBlock(!isColorBlock)}}>Color</Button>
+                            <Button onClick={() => {setIsWidthBrushBlock(!isWidthBrushBlock)}}>Brush width</Button>
                             <Button onClick={() => setIsDrawRectBlock(!isDrawRectBlock)}>Rect</Button>
                             <Button onClick={() => setIsDrawArcBlock(!isDrawArcBlock)}>Arc</Button>
                             <Button onClick={triggerSave}>Save</Button>

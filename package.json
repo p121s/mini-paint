@@ -14,7 +14,6 @@
     "@types/redux": "^3.6.0",
     "firebase": "^9.1.2",
     "react": "^17.0.2",
-    "react-colorful": "^5.5.0",
     "react-dom": "^17.0.2",
     "react-painter": "^0.4.0",
     "react-redux": "^7.2.5",

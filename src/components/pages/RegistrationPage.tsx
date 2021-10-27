@@ -13,41 +13,34 @@ import { setIdUserAction } from '../../redux/creatorsActions/setIdUserAction';
 export default function Registration () {
 
     const dispatch = useDispatch();
-    const history = useHistory()
+    const history = useHistory();
+    const [signUpParams, setSignUpParams] = useState({
+        name: '',
+        email: '',
+        password: '',
+        passwordRepeat: ''
+    });
+    console.log(signUpParams.email);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
-
-    const handlerChangeName = ({target: {value}}: any) => {
-        setName(value);
+    const handlerChangeSignUdParams = ({target: {name, value}}: any) => {
+        setSignUpParams({
+            ...signUpParams,
+            [name]: value
+        });
     };
-
-    const handlerChangeEmail = ({target: {value}}: any) => {
-        setEmail(value);
-    };
-
-    const handlerChangePassword = ({target: {value}}: any) => {
-            setPassword(value);
-    };
-
-    const handlerChangePasswordRepeat = ({target: {value}}: any) => {
-        setPasswordRepeat(value);
-    };
-
+    
     const signIn = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
 
-        if(password === passwordRepeat) {
-            createUserWithEmailAndPassword(auth, email, password)
+        if(signUpParams.password === signUpParams.passwordRepeat) {
+            createUserWithEmailAndPassword(auth, signUpParams.email, signUpParams.password)
             .then(responce => { 
                 if(responce.user.uid) {
                     setDoc(doc(database, `users`, `${responce.user.uid}`), {
-                        userName: name,
-                        userEmail: email,
+                        userName: signUpParams.name,
+                        userEmail: signUpParams.email,
                     });
-                    dispatch(setUserNameAction(name));
+                    dispatch(setUserNameAction(signUpParams.name));
                     dispatch(setIdUserAction(responce.user.uid));
                     history.push('/');
                 } else {
@@ -65,10 +58,10 @@ export default function Registration () {
         <>
             <h1>Registration Page</h1>
             <Form>
-                <Input placeholder="Your Name" onChange={handlerChangeName} />
-                <InputEmail placeholder="Your Email" onChange={handlerChangeEmail} />
-                <PasswordInput type='password' placeholder="Your Password" onChange={handlerChangePassword} />
-                <PasswordInput type='password' placeholder="Repeat Your Password" onChange={handlerChangePasswordRepeat} />
+                <Input placeholder="Your Name" name='name' onChange={handlerChangeSignUdParams} />
+                <InputEmail placeholder="Your Email" name='email' onChange={handlerChangeSignUdParams} />
+                <PasswordInput type='password' placeholder="Your Password" name='password' onChange={handlerChangeSignUdParams} />
+                <PasswordInput type='password' placeholder="Repeat Your Password" name='passwordRepeat' onChange={handlerChangeSignUdParams} />
                 <RegLogInButton onClick={signIn}>Register</RegLogInButton>
             </Form>
             <NavLink to='/'>LogIn</NavLink>
