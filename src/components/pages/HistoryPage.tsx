@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { RootStateOrAny, useDispatch } from 'react-redux';
-import { getAllImages } from '../../redux/asyncActions/getAllImages';
+import { getAllImages } from '../../redux/asyncActions/asuncActions';
 import { DivScroll } from '../../styledComponents/blocks/DivScroll';
 import { useSelector } from 'react-redux';
 

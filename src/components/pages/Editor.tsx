@@ -82,7 +82,6 @@ export default function Editor() {
 
     useEffect(() => {
         addImageInDatabase();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
     useEffect(() => {
@@ -101,8 +100,9 @@ export default function Editor() {
             image.src = imageUrl;
         }
         image.onload = function() { 
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            ctx ? ctx.drawImage(image, 0, 0) : null;  
+            if(ctx) {
+                ctx.drawImage(image, 0, 0);
+            }
         }
     }, [canvasRef, imageFile, imageUrl])
 

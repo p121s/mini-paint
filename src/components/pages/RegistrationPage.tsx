@@ -7,8 +7,8 @@ import { Form, Input, InputEmail, PasswordInput, RegLogInButton } from '../../st
 import { auth, database } from '../../firebase/InitialFirebase';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { setDoc, doc } from '@firebase/firestore';
-import { setUserNameAction } from '../../redux/creatorsActions/setUserNameAction';
-import { setIdUserAction } from '../../redux/creatorsActions/setIdUserAction';
+import { setUserNameAction } from '../../redux/creatorsActions/creatorsActions';
+import { setIdUserAction } from '../../redux/creatorsActions/creatorsActions';
 
 export default function Registration () {
 
@@ -32,15 +32,17 @@ export default function Registration () {
     const signIn = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
 
-        if(signUpParams.password === signUpParams.passwordRepeat) {
-            createUserWithEmailAndPassword(auth, signUpParams.email, signUpParams.password)
+        const {name, email, password, passwordRepeat} = signUpParams;
+
+        if(password === passwordRepeat) {
+            createUserWithEmailAndPassword(auth, email, password)
             .then(responce => { 
                 if(responce.user.uid) {
                     setDoc(doc(database, `users`, `${responce.user.uid}`), {
-                        userName: signUpParams.name,
-                        userEmail: signUpParams.email,
+                        userName: name,
+                        userEmail: email,
                     });
-                    dispatch(setUserNameAction(signUpParams.name));
+                    dispatch(setUserNameAction(name));
                     dispatch(setIdUserAction(responce.user.uid));
                     history.push('/');
                 } else {

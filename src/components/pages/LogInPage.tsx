@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { auth, database } from '../../firebase/InitialFirebase';
 import { RegLogInButton, Form, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
-import { setUserNameAction } from '../../redux/creatorsActions/setUserNameAction';
-import { setIdUserAction } from '../../redux/creatorsActions/setIdUserAction';
+import { setUserNameAction } from '../../redux/creatorsActions/creatorsActions';
+import { setIdUserAction } from '../../redux/creatorsActions/creatorsActions';
 
 export default function LogIn () {
 

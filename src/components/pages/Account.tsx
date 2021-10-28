@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { DivScroll } from '../../styledComponents/blocks/DivScroll';
 import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
-import { getUserImages } from '../../redux/asyncActions/getUserImage';
+import { getUserImages } from '../../redux/asyncActions/asuncActions';
 
 export default function Account () {
 
