@@ -1,9 +1,16 @@
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { database } from '../../firebase/InitialFirebase';
-import { setUserImages } from '../creatorsAsyncActions/setUserImages';
+import { setAllImages } from '../creatorsAsyncActions/creatorsAsyncActions';
+import { setUserImages } from '../creatorsAsyncActions/creatorsAsyncActions';
 import { store } from '../../redux/store';
 
-
+export const getAllImages = () => {
+    return (dispatch: any) => {
+        getDocs(collection(database, 'images'))
+        .then(({docs}) => docs.map(doc => doc.data()))
+        .then(res => dispatch(setAllImages(res)));
+    }
+};
 
 export const getUserImages = () => {
     const idUser = store.getState().reduce.idUser;
