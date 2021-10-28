@@ -9,19 +9,19 @@ import { Button, EditorControlsBlock, EditorModalBlock, CustomInputFile } from '
 export default function Editor() {
 
     const idUser = useSelector((state: RootStateOrAny) => state.reduce.idUser);
-    const [url, setUrl] = useState();
-    const [isColorBlock, setIsColorBlock] = useState(false);
-    const [isWidthBrushBlock, setIsWidthBrushBlock] = useState(false);
-    const [isDrawRectBlock, setIsDrawRectBlock] = useState(false);
-    const [isDrawArcBlock, setIsDrawArcBlock] = useState(false);
+    const [url, setUrl] = useState<string>();
+    const [isColorBlock, setIsColorBlock] = useState<boolean>(false);
+    const [isWidthBrushBlock, setIsWidthBrushBlock] = useState<boolean>(false);
+    const [isDrawRectBlock, setIsDrawRectBlock] = useState<boolean>(false);
+    const [isDrawArcBlock, setIsDrawArcBlock] = useState<boolean>(false);
     const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement>();
     const [imageFile, setImageFile] = useState<Blob>();
     const [imageUrl, setImageUrl] = useState<string | ArrayBuffer>();
     const [colorState, setColorState] = useState<string>('#000');
-    const [figure, setFigure] = useState('');
-    const [widthRect, setWidthRect] = useState(50);
-    const [heightRect, setHeightRect] = useState(50);
-    const [diameterArc, setDiameterArc] = useState(50);
+    const [figure, setFigure] = useState<string>('');
+    const [widthRect, setWidthRect] = useState<number>(50);
+    const [heightRect, setHeightRect] = useState<number>(50);
+    const [diameterArc, setDiameterArc] = useState<number>(50);
 
     
 
@@ -176,13 +176,13 @@ export default function Editor() {
                             <canvas {...getCanvasProps({ ref: ref => (setCanvasRef(ref)) })} onClick={drawFigure} />
                         </div>
                         <EditorControlsBlock>
-                            <CustomInputFile htmlFor='input_file'><span>Choose File</span></CustomInputFile>
+                            <CustomInputFile htmlFor='input_file'><span><i className="fas fa-file-import"></i></span></CustomInputFile>
                             <input type='file' multiple accept="image/*" id='input_file' onChange={handleImage} />
-                            <Button onClick={() => {setIsColorBlock(!isColorBlock)}}>Color</Button>
-                            <Button onClick={() => {setIsWidthBrushBlock(!isWidthBrushBlock)}}>Brush width</Button>
-                            <Button onClick={() => setIsDrawRectBlock(!isDrawRectBlock)}>Rect</Button>
-                            <Button onClick={() => setIsDrawArcBlock(!isDrawArcBlock)}>Arc</Button>
-                            <Button onClick={triggerSave}>Save</Button>
+                            <Button onClick={() => {setIsColorBlock(!isColorBlock)}}><i className="fas fa-tint"></i></Button>
+                            <Button onClick={() => {setIsWidthBrushBlock(!isWidthBrushBlock)}}><i className="fas fa-paint-brush"></i></Button>
+                            <Button onClick={() => setIsDrawRectBlock(!isDrawRectBlock)}><i className="fas fa-square"></i></Button>
+                            <Button onClick={() => setIsDrawArcBlock(!isDrawArcBlock)}><i className="fas fa-circle"></i></Button>
+                            <Button onClick={triggerSave}><i className="fas fa-save"></i></Button>
                         </EditorControlsBlock>
                     </div>
                 )}

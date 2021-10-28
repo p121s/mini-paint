@@ -11,8 +11,8 @@ export const CustomInputFile = styled.label`
 
     span {
         position: relative;
-        top: 32%;
-        font-size: 13px;
+        top: 28%;
+        font-size: 20px;
     }
 
     &:hover {

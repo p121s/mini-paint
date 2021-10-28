@@ -51,6 +51,7 @@
   margin: 50px auto;
   background-color: white;
   width: 80%;
+  border-radius: 10px;
 }
 
 .button {
@@ -58,7 +59,9 @@
   width: 103%;
   height: 15px;
   text-decoration: none;
-  padding: 28px 0;
+  padding: 15px 0;
+  color: #565656;
+
 }
 
 input[type="range"] {

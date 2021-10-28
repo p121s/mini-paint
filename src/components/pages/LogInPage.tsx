@@ -1,13 +1,9 @@
-import { signInWithEmailAndPassword } from '@firebase/auth';
-import { getDoc, doc } from '@firebase/firestore';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { auth, database } from '../../firebase/InitialFirebase';
 import { RegLogInButton, Form, InputEmail, PasswordInput } from '../../styledComponents/StyledComponents';
-import { setUserNameAction } from '../../redux/creatorsActions/creatorsActions';
-import { setIdUserAction } from '../../redux/creatorsActions/creatorsActions';
+import { signInAction } from '../../redux/asyncActions/asuncActions';
 
 export default function LogIn () {
 
@@ -26,25 +22,15 @@ export default function LogIn () {
 
     const signIn = (e: any) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then(responce => responce.user.uid)
-                .then(id => {
-                    getDoc(doc(database, 'users', `${id}`))
-                        .then(responce => responce!.data()!.userName)
-                        .then(name => {
-                    dispatch(setUserNameAction(`${name}`));
-                    })
-                    dispatch(setIdUserAction(id));
-                })
-            .catch(error => alert(error)); 
+        dispatch(signInAction(email, password));
     };
 
     return (
         <>
             <h1>Log In Page</h1>
             <Form>
-                <InputEmail placeholder='Your Email' onChange={handlerChangeEmail} />
-                <PasswordInput type='password' placeholder="Your Password" onChange={handlerChangePassword} />
+                <InputEmail placeholder='Your Email' value={email} onChange={handlerChangeEmail} />
+                <PasswordInput type='password' placeholder="Your Password" value={password} onChange={handlerChangePassword} />
                 <RegLogInButton onClick={signIn}>Sign In</RegLogInButton>
                 
             </Form>

@@ -10,14 +10,10 @@ import Editor from './components/pages/Editor';
 import { DivPage } from './styledComponents/blocks/DivPage';
 import { DivNavigation } from './styledComponents/blocks/DivNavigation';
 import { DivContent } from './styledComponents/blocks/DivContent';
-import { onAuthStateChanged } from "firebase/auth";
-import { getDoc, doc } from '@firebase/firestore';
-import { auth, database } from './firebase/InitialFirebase';
-import { setUserNameAction } from './redux/creatorsActions/creatorsActions';
-import { setIdUserAction } from './redux/creatorsActions/creatorsActions';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import './App.css';
 import Header from './components/header/Header';
+import { checkingUserAuthorization } from './redux/asyncActions/asuncActions';
+import './App.css';
 
 function App() {
 
@@ -25,17 +21,7 @@ function App() {
   const name = useSelector((state: RootStateOrAny) => state.reduce.name);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user: any) => {
-      if (user) {
-        const uid = user.uid;
-        getDoc(doc(database, 'users', `${uid}`))
-            .then(responce => responce!.data()!.userName)
-            .then(name => {
-        dispatch(setUserNameAction(`${name}`));
-        })
-        dispatch(setIdUserAction(uid));
-        }
-    });
+    dispatch(checkingUserAuthorization());
   }, [dispatch])
 
   return (

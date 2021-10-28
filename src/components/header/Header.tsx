@@ -22,10 +22,10 @@ export default function Header () {
       };
     return (
         <>
-            <Button><NavLink className='button' to='/'>My Account</NavLink></Button>
-            <Button><NavLink className='button' to='/history'>History</NavLink></Button>
-            <Button><NavLink className='button' to='/editor'>Editor</NavLink></Button>
-            <Button onClick={logOut}>Sign Out</Button>
+            <Button><NavLink className='button' to='/'><i className="fas fa-user-alt"></i></NavLink></Button>
+            <Button><NavLink className='button' to='/history'><i className="fas fa-history"></i></NavLink></Button>
+            <Button><NavLink className='button' to='/editor'><i className="fas fa-palette"></i></NavLink></Button>
+            <Button onClick={logOut}><i className="fas fa-sign-out-alt"></i></Button>
         </>
     );
 }

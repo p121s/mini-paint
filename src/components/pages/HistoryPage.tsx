@@ -19,7 +19,7 @@ export default function HistoryPage () {
             <h1>History Page</h1>
             <DivScroll>
                 {allImages.map((image: any) => (
-                    <img className='image' src={image.image} alt='' />
+                    <img className='image'  key={image.image.substr(image.image.length - 19)} src={image.image} alt='' />
                 ))}
             </DivScroll>
         </>

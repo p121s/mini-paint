@@ -21,7 +21,7 @@ export default function Account () {
             <h3>{name} Online</h3>
             <DivScroll>
                 {userImages.map((image: any) => (
-                    <img className='image' src={image.image} alt='' />
+                    <img className='image' key={image.image.substr(image.image.length - 19)} src={image.image} alt='' />
                 ))}
             </DivScroll>
         </>
