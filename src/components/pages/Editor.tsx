@@ -100,9 +100,7 @@ export default function Editor() {
             image.src = imageUrl;
         }
         image.onload = function() { 
-            if(ctx) {
-                ctx.drawImage(image, 0, 0);
-            }
+            ctx && ctx.drawImage(image, 0, 0);
         }
     }, [canvasRef, imageFile, imageUrl])
 
