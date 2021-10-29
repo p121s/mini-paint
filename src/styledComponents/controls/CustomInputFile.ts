@@ -8,6 +8,8 @@ export const CustomInputFile = styled.label`
     background: rgb(240, 240, 240);
     border: none;
     flex-grow: 1;
+    border-left: 2px solid rgb(247, 247, 247);
+    border-right: 2px solid rgb(220, 220, 220);
 
     span {
         position: relative;
@@ -18,5 +20,7 @@ export const CustomInputFile = styled.label`
     &:hover {
     background: lightblue;
     cursor: pointer;
+    border-left: 2px solid rgb(220, 220, 220);
+    border-right: 2px solid rgb(247, 247, 247);
     }
 `;

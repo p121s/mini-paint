@@ -9,9 +9,13 @@ export const Button = styled.button`
   flex-grow: 1;
   color: #565656;
   font-size: 20px;
+  border-left: 2px solid rgb(247, 247, 247);
+  border-right: 2px solid rgb(220, 220, 220);
 
   &:hover {
     background: lightblue;
     cursor: pointer;
+    border-left: 2px solid rgb(220, 220, 220);
+    border-right: 2px solid rgb(247, 247, 247);
   }
 `;
