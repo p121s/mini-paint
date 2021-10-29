@@ -9,6 +9,7 @@ import { setUserNameAction } from '../creatorsActions/creatorsActions';
 import { setIdUserAction } from '../creatorsActions/creatorsActions';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
+import { setAllUsers } from '../creatorsAsyncActions/creatorsAsyncActions';
 
 export const getAllImages = () => {
     return (dispatch: any) => {
@@ -18,8 +19,8 @@ export const getAllImages = () => {
     }
 };
 
-export const getUserImages = () => {
-    const idUser = store.getState().reduce.idUser;
+export const getUserImages = (userID?: string) => {
+    const idUser = userID || store.getState().reduce.idUser;
     return (dispatch: any) => {
         const queryInDatabase = query(collection(database, 'images'), where("user", "==", idUser));
         getDocs(queryInDatabase)
@@ -68,6 +69,7 @@ export const registrationAction = (name: string, email: string, password: string
                     setDoc(doc(database, `users`, `${responce.user.uid}`), {
                         userName: name,
                         userEmail: email,
+                        userID: responce.user.uid
                     });
                     dispatch(setUserNameAction(name));
                     dispatch(setIdUserAction(responce.user.uid));
@@ -78,5 +80,14 @@ export const registrationAction = (name: string, email: string, password: string
                 return responce;
             })
             .catch(error => alert(error));
+    }
+};
+
+
+export const getAllUsers = () => {
+    return (dispatch: any) => {
+        getDocs(collection(database, 'users'))
+        .then(({docs}) => docs.map(doc => doc.data()))
+        .then(res => dispatch(setAllUsers(res)));
     }
 };

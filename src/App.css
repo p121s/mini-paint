@@ -61,7 +61,6 @@
   text-decoration: none;
   padding: 15px 0;
   color: #565656;
-
 }
 
 input[type="range"] {
@@ -76,4 +75,26 @@ input[type="file"] {
 input[type="color"] {
   width: 80%;
   margin-bottom: 20px;
+}
+
+.block_select {
+  position: relative;
+  top: -47px;
+  text-align: right;
+}
+
+select {
+  width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+  .block_select {
+    position: relative;
+    top: -35px;
+    text-align: right;
+  }
+
+  select {
+    width: 105px;
+  }
 }

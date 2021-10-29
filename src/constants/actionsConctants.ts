@@ -5,3 +5,5 @@ export const DELETE_ID_USER = 'DELETE_ID_USER';
 
 export const GET_USER_IMAGES = 'GET_USER_IMAGES';
 export const GET_ALL_IMAGES = 'GET_ALL_IMAGES';
+
+export const SET_ALL_USERS = 'SET_ALL_USERS';
