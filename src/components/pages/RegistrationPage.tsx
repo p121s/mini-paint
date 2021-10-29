@@ -16,7 +16,6 @@ export default function Registration () {
         password: '',
         passwordRepeat: ''
     });
-    console.log(signUpParams.email);
 
     const handlerChangeSignUdParams = ({target: {name, value}}: any) => {
         setSignUpParams({

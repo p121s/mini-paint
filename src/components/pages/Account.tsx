@@ -8,7 +8,7 @@ export default function Account () {
 
     const dispatch = useDispatch();
     const name = useSelector((state: RootStateOrAny) => state.reduce.name);
-    const userImages = useSelector((state: RootStateOrAny) => state.reduceImages.userImages)
+    const userImages = useSelector((state: RootStateOrAny) => state.reduceImages.userImages);
 
     useEffect(() => {
         dispatch(getUserImages());

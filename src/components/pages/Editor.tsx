@@ -82,6 +82,7 @@ export default function Editor() {
 
     useEffect(() => {
         addImageInDatabase();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url]);
 
     useEffect(() => {
