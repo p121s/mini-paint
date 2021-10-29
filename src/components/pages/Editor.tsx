@@ -91,7 +91,7 @@ export default function Editor() {
         const reader = new FileReader();
         if(imageFile) {
             reader.readAsDataURL(imageFile);
-            reader.onloadend = function () {
+            reader.onloadend = () => {
                 if(reader.result) {
                     setImageUrl(reader.result); 
                 }          
@@ -100,8 +100,11 @@ export default function Editor() {
         if(typeof imageUrl === 'string') {
             image.src = imageUrl;
         }
-        image.onload = function() { 
-            ctx && ctx.drawImage(image, 0, 0);
+        image.onload = () => { 
+            image.width = document.documentElement.clientWidth - 100 < 1000 ? document.documentElement.clientWidth - 100 : 1000;
+            image.height = image.naturalHeight / (image.naturalWidth / image.naturalHeight);
+            console.log(image.naturalWidth, image.naturalHeight);
+            ctx && ctx.drawImage(image, 0, 0, image.width, image.height);
         }
     }, [canvasRef, imageFile, imageUrl])
 
