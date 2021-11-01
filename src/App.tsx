@@ -33,20 +33,16 @@ function App() {
                       <Header />
                   </DivNavigation>
                   <DivContent>
-                      <Route component={Account}>
                         <Route path='/' exact component={Account} />
                         <Route path='/history' component={HistoryPage} />
                         <Route path='/editor' component={Editor} />
-                      </Route>
                   </DivContent>
               </DivPage>
           ) : (
             <Body>
               <Div>
-                  <Route component={LogIn}>
                     <Route path='/' exact component={LogIn} />
                     <Route path='/register' component={Registration} />
-                  </Route>
               </Div>
             </Body>
           )}
