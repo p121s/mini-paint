@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const InputEmail = styled.input.attrs(props => ({
-    type: "email"
+export const InputEmail = styled.input.attrs(() => ({
+    type: "email",
 }))`
     width: 90%;
     padding: 10px;

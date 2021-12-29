@@ -1,14 +1,9 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { RootStateOrAny, useDispatch } from 'react-redux';
-import { getAllImages } from '../../redux/asyncActions/asuncActions';
-import { DivScroll } from '../../styledComponents/blocks/DivScroll';
-import { useSelector } from 'react-redux';
-import { getAllUsers } from '../../redux/asyncActions/asuncActions';
-import { getUserImages } from '../../redux/asyncActions/asuncActions';
+import { useEffect, useState } from "react";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { getAllImages, getAllUsers, getUserImages } from "../../store/asyncActions/asuncActions";
+import { DivScroll } from "../../styledComponents/blocks/DivScroll";
 
-export default function HistoryPage () {
-
+export default function HistoryPage(): JSX.Element {
     const dispatch = useDispatch();
     const allImages = useSelector((state: RootStateOrAny) => state.reduceImages.allImages);
     const allUsers = useSelector((state: RootStateOrAny) => state.reduceUsers.allUsers);
@@ -17,13 +12,13 @@ export default function HistoryPage () {
 
     useEffect(() => {
         dispatch(getAllImages());
-    }, [dispatch])
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getAllUsers());
-    }, [dispatch])
+    }, [dispatch]);
 
-    const getImagesOfTheSelectedUser = ({target: {value}}: any) => {
+    const getImagesOfTheSelectedUser = ({ target: { value } }: any) => {
         dispatch(getUserImages(value));
         setIsUser(value);
     };
@@ -31,22 +26,34 @@ export default function HistoryPage () {
     return (
         <>
             <h1>History Page</h1>
-            <div className='block_select'>
+            <div className="block_select">
                 <select onChange={getImagesOfTheSelectedUser}>
-                    <option value=''>--All images--</option>
+                    <option value="">--All images--</option>
                     {allUsers.map((user: any) => (
-                        <option key={user.userID} value={user.userID}>{user.userName}</option>
+                        <option key={user.userID} value={user.userID}>
+                            {user.userName}
+                        </option>
                     ))}
                 </select>
             </div>
             <DivScroll>
-                {isUser ? (
-                    userImages.map((image: any) => (
-                        <img className='image' key={image.image.substr(image.image.length - 19)} src={image.image} alt='' />
-                    ))
-                ) : (allImages.map((image: any) => (
-                    <img className='image'  key={image.image.substr(image.image.length - 19)} src={image.image} alt='' />
-                )))}
+                {isUser
+                    ? userImages.map((image: any) => (
+                          <img
+                              className="image"
+                              key={image.image.substr(image.image.length - 19)}
+                              src={image.image}
+                              alt=""
+                          />
+                      ))
+                    : allImages.map((image: any) => (
+                          <img
+                              className="image"
+                              key={image.image.substr(image.image.length - 19)}
+                              src={image.image}
+                              alt=""
+                          />
+                      ))}
             </DivScroll>
         </>
     );

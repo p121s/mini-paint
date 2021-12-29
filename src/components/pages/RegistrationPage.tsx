@@ -1,38 +1,43 @@
-import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { useHistory } from 'react-router';
-import { NavLink } from 'react-router-dom';
-import { Form, Input, InputEmail, PasswordInput, RegLogInButton } from '../../styledComponents/StyledComponents';
-import { registrationAction } from '../../redux/asyncActions/asuncActions';
+import * as React from "react";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useHistory } from "react-router";
+import { NavLink } from "react-router-dom";
+import {
+    Form,
+    Input,
+    InputEmail,
+    PasswordInput,
+    RegLogInButton,
+} from "../../styledComponents/StyledComponents";
+import { registrationAction } from "../../store/asyncActions/asuncActions";
 
-export default function Registration () {
-
+export default function Registration(): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const [signUpParams, setSignUpParams] = useState({
-        name: '',
-        email: '',
-        password: '',
-        passwordRepeat: ''
+        name: "",
+        email: "",
+        password: "",
+        passwordRepeat: "",
     });
 
-    const handlerChangeSignUdParams = ({target: {name, value}}: any) => {
+    const handlerChangeSignUdParams = ({ target: { name, value } }: any) => {
         setSignUpParams({
             ...signUpParams,
-            [name]: value
+            [name]: value,
         });
     };
-    
+
     const registration = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
 
-        const {name, email, password, passwordRepeat} = signUpParams;
+        const { name, email, password, passwordRepeat } = signUpParams;
 
-        if(password === passwordRepeat) {
-             dispatch(registrationAction(name, email, password, history))
+        if (password === passwordRepeat) {
+            dispatch(registrationAction(name, email, password, history));
         } else {
-            alert('Paswords don`t match');
+            alert("Paswords don`t match");
         }
     };
 
@@ -42,31 +47,33 @@ export default function Registration () {
             <Form>
                 <Input
                     placeholder="Your Name"
-                    name='name' value={signUpParams.name}
-                    onChange={handlerChangeSignUdParams} 
+                    name="name"
+                    value={signUpParams.name}
+                    onChange={handlerChangeSignUdParams}
                 />
                 <InputEmail
                     placeholder="Your Email"
-                    name='email' value={signUpParams.email}
-                    onChange={handlerChangeSignUdParams} 
+                    name="email"
+                    value={signUpParams.email}
+                    onChange={handlerChangeSignUdParams}
                 />
                 <PasswordInput
-                    type='password'
+                    type="password"
                     placeholder="Your Password"
-                    name='password'
+                    name="password"
                     value={signUpParams.password}
-                    onChange={handlerChangeSignUdParams} 
+                    onChange={handlerChangeSignUdParams}
                 />
                 <PasswordInput
-                    type='password'
+                    type="password"
                     placeholder="Repeat Your Password"
-                    name='passwordRepeat'
+                    name="passwordRepeat"
                     value={signUpParams.passwordRepeat}
-                    onChange={handlerChangeSignUdParams} 
+                    onChange={handlerChangeSignUdParams}
                 />
                 <RegLogInButton onClick={registration}>Register</RegLogInButton>
             </Form>
-            <NavLink to='/'>LogIn</NavLink>
+            <NavLink to="/">LogIn</NavLink>
         </>
     );
 }

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import img from '../../images/p_12.jpg';
+import styled from "styled-components";
+import img from "../../images/p_12.jpg";
 
 export const Body = styled.div`
     width: 100%;

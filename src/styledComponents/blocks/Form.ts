@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Form = styled.form`
-  width: 90%;
-  padding: 20px;
+    width: 90%;
+    padding: 20px;
 `;

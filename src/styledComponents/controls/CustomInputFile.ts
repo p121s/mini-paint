@@ -18,9 +18,9 @@ export const CustomInputFile = styled.label`
     }
 
     &:hover {
-    background: lightblue;
-    cursor: pointer;
-    border-left: 2px solid rgb(220, 220, 220);
-    border-right: 2px solid rgb(247, 247, 247);
+        background: lightblue;
+        cursor: pointer;
+        border-left: 2px solid rgb(220, 220, 220);
+        border-right: 2px solid rgb(247, 247, 247);
     }
 `;

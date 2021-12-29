@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Input = styled.input.attrs(props => ({
-  type: "text"
+export const Input = styled.input.attrs(() => ({
+    type: "text",
 }))`
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #565656;
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #565656;
 `;

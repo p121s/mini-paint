@@ -6,12 +6,12 @@ const INIT_STATE = {
 };
 
 export const reducerImageDate = (state = INIT_STATE, action: any) => {
-    switch(action.type) {
+    switch (action.type) {
         case GET_USER_IMAGES:
-            return {...state, userImages: [...action.payload]};
+            return { ...state, userImages: [...action.payload] };
         case GET_ALL_IMAGES:
-            return {...state, allImages: [...action.payload]};
+            return { ...state, allImages: [...action.payload] };
         default:
             return state;
     }
-}
+};

@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const PasswordInput = styled.input.attrs(props => ({
-    type: "password"
+export const PasswordInput = styled.input.attrs(() => ({
+    type: "password",
 }))`
     width: 90%;
     padding: 10px;
