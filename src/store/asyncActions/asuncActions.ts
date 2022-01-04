@@ -9,9 +9,12 @@ import { store } from "../../store/store";
 import { onAuthStateChanged } from "firebase/auth";
 import { setUserNameAction, setIdUserAction } from "../creatorsActions/creatorsActions";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "@firebase/auth";
+import { Dispatch } from "react";
+import { Action } from "./asyncActions.types";
+
 
 export const getAllImages = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<Action>) => {
         getDocs(collection(database, "images"))
             .then(({ docs }) => docs.map((doc) => doc.data()))
             .then((res) => dispatch(setAllImages(res)));
@@ -20,7 +23,7 @@ export const getAllImages = () => {
 
 export const getUserImages = (userID?: string) => {
     const idUser = userID || store.getState().reduce.idUser;
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<Action>) => {
         const queryInDatabase = query(collection(database, "images"), where("user", "==", idUser));
         getDocs(queryInDatabase)
             .then(({ docs }) => docs.map((doc) => doc.data()))
@@ -29,7 +32,7 @@ export const getUserImages = (userID?: string) => {
 };
 
 export const checkingUserAuthorization = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<Action>) => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
@@ -45,7 +48,7 @@ export const checkingUserAuthorization = () => {
 };
 
 export const signInAction = (email: string, password: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<Action>) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((responce) => responce.user.uid)
             .then((id) => {
@@ -61,7 +64,7 @@ export const signInAction = (email: string, password: string) => {
 };
 
 export const registrationAction = (name: string, email: string, password: string, history: any) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<Action>) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((responce) => {
                 if (responce.user.uid) {
@@ -83,7 +86,7 @@ export const registrationAction = (name: string, email: string, password: string
 };
 
 export const getAllUsers = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<Action>) => {
         getDocs(collection(database, "users"))
             .then(({ docs }) => docs.map((doc) => doc.data()))
             .then((res) => dispatch(setAllUsers(res)));
