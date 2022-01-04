@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
-import { Form, Input, InputEmail, PasswordInput, RegLogInButton } from "../../../controls/controls.styled";
+import * as Styled from "../../../controls/controls.styled";
 import { registrationAction } from "../../../store/asyncActions/asuncActions";
 
 export default function Registration(): JSX.Element {
@@ -38,35 +38,35 @@ export default function Registration(): JSX.Element {
     return (
         <>
             <h1>Registration Page</h1>
-            <Form>
-                <Input
+            <Styled.Form>
+                <Styled.Input
                     placeholder="Your Name"
                     name="name"
                     value={signUpParams.name}
                     onChange={handlerChangeSignUdParams}
                 />
-                <InputEmail
+                <Styled.InputEmail
                     placeholder="Your Email"
                     name="email"
                     value={signUpParams.email}
                     onChange={handlerChangeSignUdParams}
                 />
-                <PasswordInput
+                <Styled.PasswordInput
                     type="password"
                     placeholder="Your Password"
                     name="password"
                     value={signUpParams.password}
                     onChange={handlerChangeSignUdParams}
                 />
-                <PasswordInput
+                <Styled.PasswordInput
                     type="password"
                     placeholder="Repeat Your Password"
                     name="passwordRepeat"
                     value={signUpParams.passwordRepeat}
                     onChange={handlerChangeSignUdParams}
                 />
-                <RegLogInButton onClick={registration}>Register</RegLogInButton>
-            </Form>
+                <Styled.RegLogInButton onClick={registration}>Register</Styled.RegLogInButton>
+            </Styled.Form>
             <NavLink to="/">LogIn</NavLink>
         </>
     );

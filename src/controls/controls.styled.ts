@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const Button = styled.button`
     flex-basic: content;
@@ -50,3 +51,12 @@ export const InputEmail = styled(Input).attrs(() => ({
 export const PasswordInput = styled(Input).attrs(() => ({
     type: "password",
 }))``;
+
+export const NavLinkButton = styled(NavLink)`
+    display: block;
+    width: 103%;
+    height: 15px;
+    text-decoration: none;
+    padding: 15px 0;
+    color: #565656;
+`;

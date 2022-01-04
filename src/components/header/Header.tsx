@@ -4,10 +4,9 @@ import {
     deleteIdUserAction,
     deleteUserNameAction,
 } from "../../store/creatorsActions/creatorsActions";
-import { Button } from "../../controls/controls.styled";
+import { Button, NavLinkButton } from "../../controls/controls.styled";
 import { useDispatch } from "react-redux";
 import { auth } from "../../firebase/InitialFirebase";
-import { NavLinkButton } from "../../controls/NavLinkButton";
 
 export default function Header(): JSX.Element {
     const history = useHistory();

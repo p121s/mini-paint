@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { signInAction } from "../../../store/asyncActions/asuncActions";
-import { Form, RegLogInButton, InputEmail, PasswordInput } from "../../../controls/controls.styled";
+import * as Styled from "../../../controls/controls.styled";
 
 export default function LogIn(): JSX.Element {
     const dispatch = useDispatch();
@@ -27,16 +27,20 @@ export default function LogIn(): JSX.Element {
     return (
         <>
             <h1>Log In Page</h1>
-            <Form>
-                <InputEmail placeholder="Your Email" value={email} onChange={handlerChangeEmail} />
-                <PasswordInput
+            <Styled.Form>
+                <Styled.InputEmail
+                    placeholder="Your Email"
+                    value={email}
+                    onChange={handlerChangeEmail}
+                />
+                <Styled.PasswordInput
                     type="password"
                     placeholder="Your Password"
                     value={password}
                     onChange={handlerChangePassword}
                 />
-                <RegLogInButton onClick={signIn}>Sign In</RegLogInButton>
-            </Form>
+                <Styled.RegLogInButton onClick={signIn}>Sign In</Styled.RegLogInButton>
+            </Styled.Form>
             <NavLink to="/register">Registration</NavLink>
         </>
     );

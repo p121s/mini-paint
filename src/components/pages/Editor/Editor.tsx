@@ -3,7 +3,7 @@ import { ReactPainter } from "react-painter";
 import { addDoc, collection } from "@firebase/firestore";
 import { database } from "../../../firebase/InitialFirebase";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { EditorModalBlock, InputColor, InputFile, InputRange, DivCanvas, EditorControlsBlock, CustomInputFile } from "./Editor.styled";
+import * as Styled from "./Editor.styled";
 import { Button } from "../../../controls/controls.styled";
 
 export default function Editor(): JSX.Element {
@@ -157,8 +157,8 @@ export default function Editor(): JSX.Element {
                 }}
                 render={({ setColor, setLineWidth, triggerSave, getCanvasProps }) => (
                     <div>
-                        <EditorModalBlock isBlock={isColorBlock}>
-                            <InputColor
+                        <Styled.EditorModalBlock isBlock={isColorBlock}>
+                            <Styled.InputColor
                                 type="color"
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setColorState(e.target.value);
@@ -173,9 +173,9 @@ export default function Editor(): JSX.Element {
                             >
                                 OK
                             </button>
-                        </EditorModalBlock>
-                        <EditorModalBlock isBlock={isWidthBrushBlock}>
-                            <InputRange
+                        </Styled.EditorModalBlock>
+                        <Styled.EditorModalBlock isBlock={isWidthBrushBlock}>
+                            <Styled.InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -192,11 +192,11 @@ export default function Editor(): JSX.Element {
                             >
                                 OK
                             </button>
-                        </EditorModalBlock>
-                        <EditorModalBlock isBlock={isDrawRectBlock}>
+                        </Styled.EditorModalBlock>
+                        <Styled.EditorModalBlock isBlock={isDrawRectBlock}>
                             <label>Width {widthRect}px</label>
                             <br></br>
-                            <InputRange
+                            <Styled.InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -207,7 +207,7 @@ export default function Editor(): JSX.Element {
                             <br></br>
                             <label>Height {heightRect}px</label>
                             <br></br>
-                            <InputRange
+                            <Styled.InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -223,11 +223,11 @@ export default function Editor(): JSX.Element {
                             >
                                 OK
                             </button>
-                        </EditorModalBlock>
-                        <EditorModalBlock isBlock={isDrawArcBlock}>
+                        </Styled.EditorModalBlock>
+                        <Styled.EditorModalBlock isBlock={isDrawArcBlock}>
                             <label>Diameter {diameterArc}px</label>
                             <br></br>
-                            <InputRange
+                            <Styled.InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -243,20 +243,20 @@ export default function Editor(): JSX.Element {
                             >
                                 OK
                             </button>
-                        </EditorModalBlock>
-                        <DivCanvas>
+                        </Styled.EditorModalBlock>
+                        <Styled.DivCanvas>
                             <canvas
                                 {...getCanvasProps({ ref: (ref) => setCanvasRef(ref) })}
                                 onClick={drawFigure}
                             />
-                        </DivCanvas>
-                        <EditorControlsBlock>
-                            <CustomInputFile htmlFor="input_file">
+                        </Styled.DivCanvas>
+                        <Styled.EditorControlsBlock>
+                            <Styled.CustomInputFile htmlFor="input_file">
                                 <span>
                                     <i className="fas fa-file-import"></i>
                                 </span>
-                            </CustomInputFile>
-                            <InputFile
+                            </Styled.CustomInputFile>
+                            <Styled.InputFile
                                 type="file"
                                 multiple
                                 accept="image/*"
@@ -286,7 +286,7 @@ export default function Editor(): JSX.Element {
                             <Button onClick={triggerSave}>
                                 <i className="fas fa-save"></i>
                             </Button>
-                        </EditorControlsBlock>
+                        </Styled.EditorControlsBlock>
                     </div>
                 )}
             />

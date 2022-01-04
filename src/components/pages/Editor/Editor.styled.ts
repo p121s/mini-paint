@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-interface isEditorModalBlock {
-    readonly isBlock: boolean;
-}
+import { isEditorModalBlock } from "./Editor.interfaces";
 
 export const EditorModalBlock = styled.div<isEditorModalBlock>`
     width: 60%;
