@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { getAllImages, getAllUsers, getUserImages } from "../../store/asyncActions/asuncActions";
-import { DivScroll } from "../../styledComponents/blocks/DivScroll";
+import { getAllImages, getAllUsers, getUserImages } from "../../../store/asyncActions/asuncActions";
+import { DivScroll, Image } from "../../../shared/shared.srtled";
+import { Images, User } from "../pages.tipes";
+import { DivSelect, Select } from "./History.styled";
 
 export default function HistoryPage(): JSX.Element {
     const dispatch = useDispatch();
@@ -18,38 +20,36 @@ export default function HistoryPage(): JSX.Element {
         dispatch(getAllUsers());
     }, [dispatch]);
 
-    const getImagesOfTheSelectedUser = ({ target: { value } }: any) => {
-        dispatch(getUserImages(value));
-        setIsUser(value);
+    const getImagesOfTheSelectedUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(getUserImages(e.target.value));
+        setIsUser(e.target.value);
     };
 
     return (
         <>
             <h1>History Page</h1>
-            <div className="block_select">
-                <select onChange={getImagesOfTheSelectedUser}>
+            <DivSelect className="block_select">
+                <Select onChange={getImagesOfTheSelectedUser}>
                     <option value="">--All images--</option>
-                    {allUsers.map((user: any) => (
+                    {allUsers.map((user: User) => (
                         <option key={user.userID} value={user.userID}>
                             {user.userName}
                         </option>
                     ))}
-                </select>
-            </div>
+                </Select>
+            </DivSelect>
             <DivScroll>
                 {isUser
-                    ? userImages.map((image: any) => (
-                          <img
-                              className="image"
-                              key={image.image.substr(image.image.length - 19)}
+                    ? userImages.map((image: Images) => (
+                          <Image
+                              key={image.image.substring(image.image.length - 19)}
                               src={image.image}
                               alt=""
                           />
                       ))
-                    : allImages.map((image: any) => (
-                          <img
-                              className="image"
-                              key={image.image.substr(image.image.length - 19)}
+                    : allImages.map((image: Images) => (
+                          <Image
+                              key={image.image.substring(image.image.length - 19)}
                               src={image.image}
                               alt=""
                           />

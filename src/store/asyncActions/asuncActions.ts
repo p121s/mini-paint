@@ -30,7 +30,7 @@ export const getUserImages = (userID?: string) => {
 
 export const checkingUserAuthorization = () => {
     return (dispatch: any) => {
-        onAuthStateChanged(auth, (user: any) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
                 getDoc(doc(database, "users", `${uid}`))

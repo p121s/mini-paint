@@ -2,13 +2,8 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import {
-    RegLogInButton,
-    Form,
-    InputEmail,
-    PasswordInput,
-} from "../../styledComponents/StyledComponents";
-import { signInAction } from "../../store/asyncActions/asuncActions";
+import { signInAction } from "../../../store/asyncActions/asuncActions";
+import { Form, RegLogInButton, InputEmail, PasswordInput } from "../../../controls/controls.styled";
 
 export default function LogIn(): JSX.Element {
     const dispatch = useDispatch();
@@ -16,12 +11,12 @@ export default function LogIn(): JSX.Element {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handlerChangeEmail = ({ target: { value } }: any) => {
-        setEmail(value);
+    const handlerChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
     };
 
-    const handlerChangePassword = ({ target: { value } }: any) => {
-        setPassword(value);
+    const handlerChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
     };
 
     const signIn = (e: React.SyntheticEvent) => {

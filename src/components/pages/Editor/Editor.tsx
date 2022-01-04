@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 import { ReactPainter } from "react-painter";
 import { addDoc, collection } from "@firebase/firestore";
-import { database } from "../../firebase/InitialFirebase";
+import { database } from "../../../firebase/InitialFirebase";
 import { RootStateOrAny, useSelector } from "react-redux";
-import {
-    Button,
-    EditorControlsBlock,
-    EditorModalBlock,
-    CustomInputFile,
-} from "../../styledComponents/StyledComponents";
+import { EditorModalBlock, InputColor, InputFile, InputRange, DivCanvas, EditorControlsBlock, CustomInputFile } from "./Editor.styled";
+import { Button } from "../../../controls/controls.styled";
 
 export default function Editor(): JSX.Element {
     const idUser = useSelector((state: RootStateOrAny) => state.reduce.idUser);
@@ -54,16 +50,16 @@ export default function Editor(): JSX.Element {
         setImageFile(e.target.files[0]);
     };
 
-    const handleWidthRect = ({ target: { value } }: any) => {
-        setWidthRect(value);
+    const handleWidthRect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setWidthRect(+e.target.value);
     };
 
-    const handleHeightRect = ({ target: { value } }: any) => {
-        setHeightRect(value);
+    const handleHeightRect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setHeightRect(+e.target.value);
     };
 
-    const handleDiameterArc = ({ target: { value } }: any) => {
-        setDiameterArc(value);
+    const handleDiameterArc = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDiameterArc(+e.target.value);
     };
 
     const changeColor = (setColor: any) => {
@@ -72,11 +68,10 @@ export default function Editor(): JSX.Element {
     };
 
     const chooseFigure = (figure: string) => {
+        setFigure(figure);
         if (figure === "Rect") {
-            setFigure("Rect");
             setIsDrawRectBlock(!isDrawRectBlock);
         } else if (figure === "Arc") {
-            setFigure("Arc");
             setIsDrawArcBlock(!isDrawArcBlock);
         }
     };
@@ -106,7 +101,6 @@ export default function Editor(): JSX.Element {
                     ? document.documentElement.clientWidth - 100
                     : 1000;
             image.height = image.naturalHeight / (image.naturalWidth / image.naturalHeight);
-            console.log(image.naturalWidth, image.naturalHeight);
             ctx && ctx.drawImage(image, 0, 0, image.width, image.height);
         };
     }, [canvasRef, imageFile, imageUrl]);
@@ -129,7 +123,7 @@ export default function Editor(): JSX.Element {
         ctx.fill();
     };
 
-    const drawFigure = (e: any) => {
+    const drawFigure = (e: React.MouseEvent<HTMLElement>) => {
         if (figure === "Rect") {
             drawRect(e);
         } else if (figure === "Arc") {
@@ -164,10 +158,10 @@ export default function Editor(): JSX.Element {
                 render={({ setColor, setLineWidth, triggerSave, getCanvasProps }) => (
                     <div>
                         <EditorModalBlock isBlock={isColorBlock}>
-                            <input
+                            <InputColor
                                 type="color"
-                                onChange={({ target: { value } }: any) => {
-                                    setColorState(value);
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    setColorState(e.target.value);
                                 }}
                             />
                             <br></br>
@@ -181,12 +175,14 @@ export default function Editor(): JSX.Element {
                             </button>
                         </EditorModalBlock>
                         <EditorModalBlock isBlock={isWidthBrushBlock}>
-                            <input
+                            <InputRange
                                 type="range"
                                 min="1"
                                 max="200"
                                 step="1"
-                                onChange={(e: any) => setLineWidth(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                    setLineWidth(+e.target.value)
+                                }
                             />
                             <br></br>
                             <button
@@ -200,7 +196,7 @@ export default function Editor(): JSX.Element {
                         <EditorModalBlock isBlock={isDrawRectBlock}>
                             <label>Width {widthRect}px</label>
                             <br></br>
-                            <input
+                            <InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -211,7 +207,7 @@ export default function Editor(): JSX.Element {
                             <br></br>
                             <label>Height {heightRect}px</label>
                             <br></br>
-                            <input
+                            <InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -231,7 +227,7 @@ export default function Editor(): JSX.Element {
                         <EditorModalBlock isBlock={isDrawArcBlock}>
                             <label>Diameter {diameterArc}px</label>
                             <br></br>
-                            <input
+                            <InputRange
                                 type="range"
                                 min="1"
                                 max="200"
@@ -248,19 +244,19 @@ export default function Editor(): JSX.Element {
                                 OK
                             </button>
                         </EditorModalBlock>
-                        <div className="border_canvas">
+                        <DivCanvas>
                             <canvas
                                 {...getCanvasProps({ ref: (ref) => setCanvasRef(ref) })}
                                 onClick={drawFigure}
                             />
-                        </div>
+                        </DivCanvas>
                         <EditorControlsBlock>
                             <CustomInputFile htmlFor="input_file">
                                 <span>
                                     <i className="fas fa-file-import"></i>
                                 </span>
                             </CustomInputFile>
-                            <input
+                            <InputFile
                                 type="file"
                                 multiple
                                 accept="image/*"

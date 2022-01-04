@@ -3,14 +3,8 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
-import {
-    Form,
-    Input,
-    InputEmail,
-    PasswordInput,
-    RegLogInButton,
-} from "../../styledComponents/StyledComponents";
-import { registrationAction } from "../../store/asyncActions/asuncActions";
+import { Form, Input, InputEmail, PasswordInput, RegLogInButton } from "../../../controls/controls.styled";
+import { registrationAction } from "../../../store/asyncActions/asuncActions";
 
 export default function Registration(): JSX.Element {
     const dispatch = useDispatch();
@@ -22,10 +16,10 @@ export default function Registration(): JSX.Element {
         passwordRepeat: "",
     });
 
-    const handlerChangeSignUdParams = ({ target: { name, value } }: any) => {
+    const handlerChangeSignUdParams = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSignUpParams({
             ...signUpParams,
-            [name]: value,
+            [e.target.name]: e.target.value,
         });
     };
 

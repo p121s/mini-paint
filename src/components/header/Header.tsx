@@ -4,10 +4,10 @@ import {
     deleteIdUserAction,
     deleteUserNameAction,
 } from "../../store/creatorsActions/creatorsActions";
-import { Button } from "../../styledComponents/StyledComponents";
+import { Button } from "../../controls/controls.styled";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { auth } from "../../firebase/InitialFirebase";
+import { NavLinkButton } from "../../controls/NavLinkButton";
 
 export default function Header(): JSX.Element {
     const history = useHistory();
@@ -22,19 +22,19 @@ export default function Header(): JSX.Element {
     return (
         <>
             <Button>
-                <NavLink className="button" to="/">
+                <NavLinkButton to="/">
                     <i className="fas fa-user-alt"></i>
-                </NavLink>
+                </NavLinkButton>
             </Button>
             <Button>
-                <NavLink className="button" to="/history">
+                <NavLinkButton to="/history">
                     <i className="fas fa-history"></i>
-                </NavLink>
+                </NavLinkButton>
             </Button>
             <Button>
-                <NavLink className="button" to="/editor">
+                <NavLinkButton to="/editor">
                     <i className="fas fa-palette"></i>
-                </NavLink>
+                </NavLinkButton>
             </Button>
             <Button onClick={logOut}>
                 <i className="fas fa-sign-out-alt"></i>
